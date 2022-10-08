@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image uploader</title>
+</head>
+<body>
+    <h1>Image uploader</h1>
+    <div id="imageContainer">
+    </div>
+</body>
+<script>
+    let url = window.location.href;     // create a variable with the current url
+    url = url.substring(url.lastIndexOf('/') + 1); // get the raw image name
+    const url2 = "http://localhost/raw/" + url; // make a second variable with the link to the actual image
+    const image = document.createElement("img");
+    const link = document.createElement("a");
+    image.src = url2; // add the image source
+    link.href = "http://localhost/raw/" + url; // add image link
+    link.id = "imageLink"
+    link.target = "_blank";
+    document.getElementById("imageContainer").appendChild(link); 
+    document.getElementById("imageLink").appendChild(image);
+</script>
+</html>
