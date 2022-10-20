@@ -175,32 +175,9 @@ app.post('/delete', (req, res) => {
     });
 });
 
-// Create a POST route /admin/createApikey that takes a admin key, username, email and creates a api key for the user and saves it to a database (firestore)
+
 app.post('/admin/createApikey', (req, res) => {
-    const adminKey = req.body.adminKey;
-    const username = req.body.username;
-    const email = req.body.email;
-    const str1 = _.random(1000000000000000000, 9999999999999999999).toString();
-    const str2 = _.shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789').slice(0, 10).join('');
-    const apiKey = str1 + str2;
-    if (hash(adminKey) === hash(process.env.adminKey)) {
-        if (! username || ! email) {
-            res.status(400).send('No username or email provided');
-        }
-        if (username.trim() === '' || email.trim() === '') {
-            res.status(400).send('Invalid username or email');
-        } else {
-            res.status(200).send(apiKey);
-            // append the api key to a file called apikeys
-            let username2 = req.body.username.replace(/\s/g, ''); // clean the input
-            let email2 = req.body.email.replace(/[^a-zA-Z0-9@.]/g, '');
-            fs.appendFileSync('./apikeys.txt', `${apiKey} ${username2} ${email2}\n`);
-            // add the api key to a firebase database
-            createUser(apiKey, email, username, adminKey);
-        }
-    } else {
-        res.status(403).send('Invalid admin key');
-    }
+   // Create a POST route /admin/createApikey that takes a admin key, username, email and creates a api key for the user and saves it to a database (firestore)
 })
 
 // Create a GET route /admin/listKeys that lists every api key, who owns it and when it was created.
@@ -222,21 +199,7 @@ app.get('/admin/listKeys', (req, res) => {
     }
 })
 
-// Create a POST route /admin/deleteKey that takes a api key and deletes it from the database (firestore)
+
 app.post('/admin/deleteKey', (req, res) => {
-    const adminKey = req.body.adminKey;
-    const apiKey = req.body.apiKey;
-    if (hash(adminKey.trim()) === hash(process.env.adminKey)) {
-        if (! apiKey || apiKey.trim() === '') {
-            res.status(400).send('No api key provided');
-        } else {
-            usersDb.doc(apiKey).delete().then(() => {
-                res.status(200).send('Key deleted');
-            }).catch(err => {
-                res.status(500).send(err);
-            });
-        }
-    } else {
-        res.status(403).send('Invalid admin key');
-    }
+   // Create a POST route /admin/deleteKey that takes a api key and deletes it from the database (firestore)
 });
