@@ -31,7 +31,7 @@ API: Repl.it ?
 
 - [ ] Create a dashboard that shows all the images
 - [ ] Lists all images with a delete button, copy url button and a raw url button
-- [ ] Upload form
+- [X] Upload form
 
 ## TODO (ADMIN)
 
