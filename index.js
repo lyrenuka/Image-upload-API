@@ -164,14 +164,10 @@ app.get('/list', (req, res) => { // return a json of every file in the uploads d
 
 // make a post route that deletes the image with the corresponding name
 app.post('/delete', (req, res) => {
-    const name = req.body.name;
+   
     //TODO: check if the api key owns the image
     fs.unlink('./uploads/' + name, (err) => {
-        if (err) {
-            res.status(400).send('No such file, make sure you included the extension. ex: 400718604.png');
-        } else {
-            res.status(200).send('File deleted');
-        }
+        
     });
 });
 
